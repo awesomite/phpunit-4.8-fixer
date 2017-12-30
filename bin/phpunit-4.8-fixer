@@ -14,7 +14,7 @@ foreach (array('/../../autoload.php', '/../vendor/autoload.php', '/vendor/autolo
 
 if (!$included) {
     \fwrite(STDERR, "File 'vendor/autoload.php' not found\n");
-    exit;
+    exit(1);
 }
 
 Fixer::fix();
