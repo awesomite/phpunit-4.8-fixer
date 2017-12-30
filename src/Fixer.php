@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the awesomite/phpunit-4.8-fixer package.
+ *
+ * (c) Bartłomiej Krukowski <bartlomiej@krukowski.me>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Awesomite\Phpunit48Fixer;
 
 /**
@@ -13,8 +22,8 @@ class Fixer
         $file = $reflection->getFileName();
         $contents = \file_get_contents($file);
         $result = '';
-        foreach (token_get_all($contents) as $token) {
-            if (is_string($token)) {
+        foreach (\token_get_all($contents) as $token) {
+            if (\is_string($token)) {
                 $result .= $token;
                 continue;
             }
@@ -24,8 +33,8 @@ class Fixer
             }
             $result .= $source;
         }
-        file_put_contents($reflection->getFileName(), $result);
-        echo "Fixes applied\n";
+        \file_put_contents($reflection->getFileName(), $result);
+        echo "[phpunit-4.8-fixer] Fixes applied\n";
     }
 
     public static function awesomiteEach(&$array)

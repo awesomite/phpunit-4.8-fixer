@@ -2,7 +2,7 @@
 
 Function `each` is deprecated from PHP 7.2, it causes errors in PHPUnit 4.8:
 
-```php
+```
 Deprecated: The each() function is deprecated.
 This message will be suppressed on further calls in (...)/phpunit/src/Util/Getopt.php
 ```

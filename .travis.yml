@@ -1,0 +1,34 @@
+language: php
+
+dist: trusty
+sudo: false
+
+php:
+  - 7.2
+  - 7.1
+  - 7.0
+  - 5.6
+  - 5.5
+  - 5.4
+  - nightly
+
+matrix:
+  allow_failures:
+    - php: nightly
+
+  include:
+    - php: 5.3
+      dist: precise
+
+install:
+  - composer update
+  - |
+    if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then
+      cd dev-tools; composer update; cd ..;
+      export PHP_CS_FIXER="./dev-tools/vendor/bin/php-cs-fixer";
+      export RUN_CS_FIXER="true";
+    fi
+
+script:
+  - if [[ "$RUN_CS_FIXER" = "true" ]]; then php -n ${PHP_CS_FIXER} --diff --dry-run -v --allow-risky=yes fix; fi
+  - bin/phpunit-4.8-fixer

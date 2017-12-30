@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+
+use Awesomite\Phpunit48Fixer\Fixer;
+
+$included = false;
+foreach (array('/../../autoload.php', '/../vendor/autoload.php', '/vendor/autoload.php') as $file) {
+    if (\file_exists(__DIR__ . $file)) {
+        require __DIR__ . $file;
+        $included = true;
+        break;
+    }
+}
+
+if (!$included) {
+    \fwrite(STDERR, "File 'vendor/autoload.php' not found\n");
+    exit;
+}
+
+Fixer::fix();
