@@ -3,23 +3,18 @@
 
 use Awesomite\Phpunit48Fixer\Fixer;
 
-$autoloader = false;
-
-foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php') as $file) {
-    if (file_exists($file)) {
-        $autoloader = $file;
-
+$included = false;
+foreach (array('/../../autoload.php', '/../vendor/autoload.php', '/vendor/autoload.php') as $file) {
+    if (\file_exists(__DIR__ . $file)) {
+        require __DIR__ . $file;
+        $included = true;
         break;
     }
 }
 
-unset($file);
-
-if (false === $autoloader) {
-    fwrite(STDERR, "Execute `composer install`\n");
+if (!$included) {
+    fwrite(STDERR, "File 'vendor/autoload.php' not found\n");
     exit(1);
 }
-
-require $autoloader;
 
 Fixer::fix();
