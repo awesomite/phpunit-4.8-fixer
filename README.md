@@ -1,6 +1,8 @@
 # PHPUnit 4.8 Fixer
 
-Function `each` is deprecated from PHP 7.2, it causes errors in PHPUnit 4.8:
+[![Build Status](https://travis-ci.org/awesomite/phpunit-4.8-fixer.svg?branch=master)](https://travis-ci.org/awesomite/phpunit-4.8-fixer)
+
+Function [`each`](http://php.net/manual/en/function.each.php) is deprecated from PHP 7.2, it causes errors in PHPUnit 4.8:
 
 ```
 Deprecated: The each() function is deprecated.
