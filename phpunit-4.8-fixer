@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+use Awesomite\Phpunit48Fixer\Fixer;
+
+$autoloader = false;
+
+foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php') as $file) {
+    if (file_exists($file)) {
+        $autoloader = $file;
+
+        break;
+    }
+}
+
+unset($file);
+
+if (false === $autoloader) {
+    fwrite(STDERR, "Execute `composer install`\n");
+    exit(1);
+}
+
+require $autoloader;
+
+Fixer::fix();
