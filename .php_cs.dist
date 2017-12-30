@@ -1,7 +1,7 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__ . DIRECTORY_SEPARATOR . 'bin')
+    ->in(__DIR__)
     ->in(__DIR__ . DIRECTORY_SEPARATOR . 'src')
     ->name('phpunit-4.8-fixer')
 ;
