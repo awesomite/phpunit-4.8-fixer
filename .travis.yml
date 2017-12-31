@@ -21,7 +21,9 @@ matrix:
       dist: precise
 
 install:
+  - cd dev-tools; composer update; cd ..
   - composer update
+  - composer show
   - |
     if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then
       cd dev-tools; composer update; cd ..;
@@ -33,3 +35,6 @@ script:
   - if [[ "$RUN_CS_FIXER" = "true" ]]; then php -n ${PHP_CS_FIXER} --diff --dry-run -v --allow-risky=yes fix; fi
   - ./phpunit-4.8-fixer
   - vendor/bin/phpunit
+
+after_script:
+  - travis_retry bin/coveralls.sh

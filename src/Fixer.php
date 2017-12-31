@@ -33,6 +33,9 @@ final class Fixer
         return false;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public static function fix()
     {
         $self = new static();
@@ -40,6 +43,9 @@ final class Fixer
         echo "[phpunit-4.8-fixer] Fixes applied\n";
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     private function fixEachFn()
     {
         $reflection = new \ReflectionClass('PHPUnit_Util_Getopt');
