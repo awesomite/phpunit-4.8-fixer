@@ -14,29 +14,8 @@ namespace Awesomite\Phpunit48Fixer;
 /**
  * @internal
  */
-class Fixer
+final class Fixer
 {
-    public static function fix()
-    {
-        $reflection = new \ReflectionClass('PHPUnit_Util_Getopt');
-        $file = $reflection->getFileName();
-        $contents = \file_get_contents($file);
-        $result = '';
-        foreach (\token_get_all($contents) as $token) {
-            if (\is_string($token)) {
-                $result .= $token;
-                continue;
-            }
-            list($tokenId, $source) = $token;
-            if (T_STRING === $tokenId && 'each' === $source) {
-                $source = '\\' . __CLASS__ . '::awesomiteEach';
-            }
-            $result .= $source;
-        }
-        \file_put_contents($reflection->getFileName(), $result);
-        echo "[phpunit-4.8-fixer] Fixes applied\n";
-    }
-
     public static function awesomiteEach(&$array)
     {
         if (false !== $arg = \current($array)) {
@@ -52,5 +31,36 @@ class Fixer
         }
 
         return false;
+    }
+
+    public static function fix()
+    {
+        $self = new static();
+        $self->fixEachFn();
+        echo "[phpunit-4.8-fixer] Fixes applied\n";
+    }
+
+    private function fixEachFn()
+    {
+        $reflection = new \ReflectionClass('PHPUnit_Util_Getopt');
+        $this->fixEachFnInFile($reflection->getFileName());
+    }
+
+    private function fixEachFnInFile($fileName)
+    {
+        $contents = \file_get_contents($fileName);
+        $result = '';
+        foreach (\token_get_all($contents) as $token) {
+            if (\is_string($token)) {
+                $result .= $token;
+                continue;
+            }
+            list($tokenId, $source) = $token;
+            if (T_STRING === $tokenId && 'each' === $source) {
+                $source = '\\' . __CLASS__ . '::awesomiteEach';
+            }
+            $result .= $source;
+        }
+        \file_put_contents($fileName, $result);
     }
 }

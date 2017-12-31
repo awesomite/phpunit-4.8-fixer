@@ -16,6 +16,11 @@
             "Awesomite\\Phpunit48Fixer\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Awesomite\\Phpunit48Fixer\\": "tests/"
+        }
+    },
     "bin": [
         "phpunit-4.8-fixer"
     ]
